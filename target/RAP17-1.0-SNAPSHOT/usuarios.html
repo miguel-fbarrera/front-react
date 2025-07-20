@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Barlow&display=swap" rel="stylesheet" />
+    <link href="./css/main.css" rel="stylesheet" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <div class="main">
+        <div class="menu">
+            <div class="menu_mark mark_reg"></div>
+            <div class="logo"></div>
+            <div class="reg_div selected" onclick="window.location.href='./usuarios.html'">
+                <span class="text_menu text_sel">Registrar usuario</span>
+            </div>
+            <div class="can_div" onclick="window.location.href='./canales.html'">
+                <span class="text_menu">Canales</span>
+            </div>
+            <div class="op_div" onclick="window.location.href='./oportunidades.html'">
+                <span class="text_menu">Oportunidades</span>
+            </div>
+            <div class="hom_div" onclick="window.location.href='./homologaciones.html'">
+                <span class="text_menu">Homologaciones</span>
+            </div>
+        </div>
+
+        <div class="screen">
+            <span class="label_title">Registro de usuario nuevo</span>
+            
+            <button onclick="buscarUsuarios()" id="myBtn" class="button_view" style="width: 150px;">
+                <span class="text_view">Ver Usuarios</span>
+            </button>
+            
+            <form>
+                <div class="input_name">
+                    <span class="label_input">Nombre</span>
+                    <input name="nombre" type="text" class="input" placeholder="Nombre">
+                </div>
+                <div class="input_mail">
+                    <span class="label_input">Correo</span>
+                    <input name="correo" type="text" class="input" placeholder="Correo">
+                </div>    
+                <div class="input_user">
+                    <span class="label_input">Usuario</span>
+                    <input name="username" type="text" class="input" placeholder="Usuario">
+                </div>
+                <div class="input_pass">
+                    <span class="label_input">Contraseña</span>
+                    <input name="password" type="text" class="input" placeholder="Contraseña">
+                </div>
+                <div class="input_rol">
+                    <span class="label_input">Rol</span>
+                    <select name="rol" class="input">
+                        <option value="" disabled selected>Seleccione el rol</option>
+                        <option value="Operador">Operador</option>
+                        <option value="Lider">Lider</option>
+                        <option value="Directivo">Directivo</option>
+                        <option value="Visualizador">Visualizador</option>
+                    </select>
+                </div>
+                <div class="input_area">
+                    <span class="label_input">Área</span>
+                    <select name="area" class="input">
+                        <option value="" disabled selected>Seleccione el área</option>
+                        <option value="Pre-Sales">Pre-Sales</option>
+                        <option value="Comercial">Comercial</option>
+                        <option value="Operaciones">Operaciones</option>
+                    </select>
+                </div>
+                <button onClick="registrarUsuario()" class="button_send">
+                    <span class="text_send">Registrar</span>
+                </button>
+                <button class="button_back">
+                    <span class="text_back">Regresar</span>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal de confirmación -->
+    <div class="modal-overlay"></div>
+    <div class="modal1" id="modalSuccess">
+        <h3>Usuario registrado</h3>
+        <button id="closeModal">Cerrar</button>
+    </div>
+
+    <div id="myModal" class="modal">
+
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p class=""><button class="button_modal">Editar</button><button class="button_modal">X</button>Oportunidad 1</p>
+
+        </div>
+    </div>
+
+</body>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    
+    /*var span = document.getElementsByClassName("close")[0];
+    span.onclick = function() {
+        modal.style.display = "none";
+    }*/
+    // When the user clicks the button, open the modal 
+    // btn.onclick = function() {
+    //     modal.style.display = "block";
+    // }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+        modal.style.display = "none";
+        }
+    }
+
+
+    
+    function registrarUsuario(){
+        const formData = new FormData(document.querySelector("form"));
+        fetch("registrar", {
+        method: "POST",
+        body: new FormData(this)
+        })
+        .then(response => {
+            const formulario = document.querySelector(".main");
+            
+            // Limpiar todos los inputs
+            formulario.querySelectorAll("input").forEach(input => input.value = "");
+            
+            // Restablecer todos los selects a su primer valor
+            formulario.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
+            
+            // Mostrar el modal
+            document.getElementById("modalSuccess").classList.add("active");
+            document.querySelector(".modal-overlay").classList.add("active");
+            this.reset();
+            document.querySelector(".button_back").addEventListener("click", function() {
+                const formulario = document.querySelector(".main");
+                // Limpiar todos los inputs
+                formulario.querySelectorAll("input").forEach(input => input.value = "");
+                // Restablecer todos los selects a su primer valor
+                formulario.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
+            });
+
+        });
+    }
+
+
+    // Cerrar el modal
+    document.getElementById("closeModal").addEventListener("click", function() {
+        document.getElementById("modalSuccess").classList.remove("active");
+        document.querySelector(".modal-overlay").classList.remove("active");
+    });
+
+    function buscarUsuarios(){
+        fetch('consultar')
+        .then(response => response.json())
+        .then(usuarios => {
+            const modalContent = document.querySelector('.modal-content');
+            modalContent.innerHTML = ''; 
+
+            const closeBtn = document.createElement('span');
+            closeBtn.className = 'close';
+            closeBtn.innerHTML = '&times;';
+            modalContent.appendChild(closeBtn);
+           
+            usuarios.forEach(usuario => {
+                const p = document.createElement('p');
+                p.innerHTML = `
+                    <button class="button_modal" onclick="buscarUsuario(${usuario.id})">Editar</button>
+                    <button class="button_modal" onclick="eliminarUsuario(${usuario.id})">X</button>
+                    ${usuario.nombre}`;
+                modalContent.appendChild(p);
+
+            var span = document.getElementsByClassName("close")[0];
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+            });
+            // Mostrar el modal
+            modal.style.display = "block";
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function eliminarUsuario(id) {
+        if (confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
+            fetch(`eliminarUsuario?id=${encodeURIComponent(id)}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    buscarUsuarios(); // Refresh the user list
+                    alert("Usuario eliminado correctamente.");
+                } else {
+                    alert("Error al eliminar el usuario.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    }
+
+    function buscarUsuario(id) {
+        const formData = new FormData();
+        formData.append('id', id);
+
+        fetch("buscarusuario", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(usuarios => {
+            modal.style.display = "none";
+
+            const inputs = document.querySelectorAll('input');
+            const selects = document.querySelectorAll('select');
+            const guardarBtn = document.querySelector('.button_send');
+            //guardarBtn.removeAttribute('type');
+            guardarBtn.setAttribute('onClick', 'editarUsuario('+id+',event)');
+            guardarBtn.querySelector('.text_send').textContent = 'Actualizar';
+
+            //guardarBtn.setAttribute('type', 'submit');
+            //guardarBtn.querySelector('.text_send').textContent = 'Guardar';
+                
+            inputs.forEach(input => {
+                if (usuarios[input.name]) {
+                    input.value = usuarios[input.name];
+                }
+            });
+
+            selects.forEach(select => {
+                if (usuarios[select.name]) {
+                    Array.from(select.options).forEach(option => {
+                        if (option.value === usuarios[select.name]) {
+                            option.selected = true;
+                        }
+                    });
+                }
+            });            
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+
+    function editarUsuario(id,event) {
+        event.preventDefault();
+        const formData = new FormData(document.querySelector('form'));
+        formData.append('id', id);
+
+        fetch("editarusuario", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {     
+                //buscarUsuarios();
+                document.querySelector('.button_send').setAttribute('onClick', 'registrarUsuario()');
+                document.querySelector('.button_send').querySelector('.text_send').textContent = 'Registrar';
+                alert("Usuario actualizado correctamente.");
+            } else {
+                alert("Error al actualizar el usuario.");
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+
+</script>
+
+</html>

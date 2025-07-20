@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Barlow&display=swap" rel="stylesheet" />
+    <link href="./css/main.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="menu">
+            <div class="menu_mark mark_op"></div>
+            <div class="logo"></div>
+            <div class="reg_div" onclick="window.location.href='./usuarios.html'">
+                <span class="text_menu">Registrar usuario</span>
+            </div>
+            <div class="can_div" onclick="window.location.href='./canales.html'">
+                <span class="text_menu">Canales</span>
+            </div>
+            <div class="op_div selected" onclick="window.location.href='./oportunidades.html'">
+                <span class="text_menu text_sel">Oportunidades</span>
+            </div>
+            <div class="hom_div" onclick="window.location.href='./homologaciones.html'">
+                <span class="text_menu">Homologaciones</span>
+            </div>
+        </div>
+
+        <span class="label_title">Registro de oportunidad nueva</span>
+        <button id="myBtn" class="button_view" style="width: 190px;">
+            <span class="text_view">Ver oportunidades</span>
+        </button>
+
+        <div class="input_name">
+            <span class="label_input">Nombre del canal</span>
+            <input type="text" class="input" placeholder="Nombre">
+        </div>
+
+        <div class="select_com">
+            <span class="label_input">Canal</span>
+            <select class="input">
+                <option value="" disabled selected>Seleccione el canal</option>
+                <option value="123">Canal 1</option>
+                <option value="456">Canal 2</option>
+            </select>
+        </div>
+        
+        <div class="input_pais">
+            <span class="label_input">País</span>
+            <select class="input">
+                <option value="" disabled selected>Seleccione el país</option>
+                <option value="mercedes">Pre-Sales</option>
+                <option value="audi">Commercial</option>
+            </select>
+        </div>
+        
+        <button class="button_send" style="top:550px">
+            <span class="text_send">Registrar</span>
+        </button>
+        <button class="button_back" style="top:550px">
+            <span class="text_back">Regresar</span>
+        </button>
+    </div>
+
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p class=""><button class="button_modal">Editar</button>Oportunidad 1</p>
+          <p class=""><button class="button_modal">Editar</button>Oportunidad 2</p>
+          <p class=""><button class="button_modal">Editar</button>Oportunidad 3</p>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+            modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

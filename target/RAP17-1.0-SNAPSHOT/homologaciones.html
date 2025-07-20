@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Barlow&display=swap" rel="stylesheet" />
+    <link href="./css/main.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="menu">
+            <div class="menu_mark mark_hom"></div>
+            <div class="logo"></div>
+            <div class="reg_div" onclick="window.location.href='./usuarios.html'">
+                <span class="text_menu">Registrar usuario</span>
+            </div>
+            <div class="can_div" onclick="window.location.href='./canales.html'">
+                <span class="text_menu">Canales</span>
+            </div>
+            <div class="op_div" onclick="window.location.href='./oportunidades.html'">
+                <span class="text_menu">Oportunidades</span>
+            </div>
+            <div class="hom_div selected" onclick="window.location.href='./homologaciones.html'">
+                <span class="text_menu text_sel">Homologaciones</span>
+            </div>
+        </div>
+        <span class="label_title">Registro de homologación</span>
+        <button id="myBtn" class="button_view" style="width: 190px;">
+            <span class="text_view">Ver homologación</span>
+        </button>
+
+        <div class="input_name">
+            <span class="label_input">Nombre de la marca</span>
+            <input type="text" class="input" placeholder="Nombre de la marca">
+        </div>
+        <div class="input_mail">
+            <span class="label_input">Oportunidad</span>
+            <select class="input">
+                <option value="" disabled selected>Seleccione la Oportunidad</option>
+                <option value="Oportunidad 1">Oportunidad 1</option>
+                <option value="Oportunidad 2">Oportunidad 2</option>
+                <option value="Oportunidad 3">Oportunidad 3</option>
+            </select>
+        </div>
+
+
+
+
+        <!-- <div class="input_name">
+            <span class="label_input">Nombre</span>
+            <input type="text" class="input" placeholder="Nombre">
+        </div>
+    
+        <div class="input_user">
+            <span class="label_input">Usuario</span>
+            <input type="text" class="input" placeholder="Usuario">
+        </div>
+        <div class="input_pass">
+            <span class="label_input">Contraseña</span>
+            <input type="text" class="input" placeholder="Contraseña">
+        </div>
+        <div class="input_rol">
+            <span class="label_input">Rol</span>
+            <select class="input">
+                <option value="" disabled selected>Seleccione el rol</option>
+                <option value="mercedes">Pre-Sales</option>
+                <option value="audi">Commercial</option>
+            </select>
+        </div>
+        <div class="input_area">
+            <span class="label_input">Área</span>
+            <select class="input">
+                <option value="" disabled selected>Seleccione el área</option>
+                <option value="mercedes">Pre-Sales</option>
+                <option value="audi">Commercial</option>
+            </select>
+        </div>
+        <div class="input_mail">
+            <span class="label_input">Correo</span>
+            <input type="text" class="input" placeholder="Correo">
+        </div> -->
+
+
+
+
+
+
+
+
+
+
+        <button class="button_send" style="top: 420px;">
+            <span class="text_send">Registrar</span>
+        </button>
+        <button class="button_back" style="top: 420px;">
+            <span class="text_back">Regresar</span>
+        </button>
+    </div>
+
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p class=""><button class="button_modal">Editar</button><button id="evBtn" class="button_modal">Evento</button>Homologación 1</p>
+          <p class=""><button class="button_modal">Editar</button><button class="button_modal">Evento</button>Homologación 2</p>
+          <p class=""><button class="button_modal">Editar</button><button class="button_modal">Evento</button>Homologación 3</p>
+        </div>
+    </div>
+
+
+    <div id="myModalev" class="modalev">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p class=""><b>Agregar evento</b></p>
+          <p><textarea type="" rows="4" cols="40"></textarea></p>
+          <p class=""><button id="save" class="button_modal">Guardar</button></p>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        var modalev = document.getElementById("myModalev");
+        var save = document.getElementById("save");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+        var evbtn = document.getElementById("evBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        evbtn.onclick = function() {
+            modalev.style.display = "block";
+            modal.style.display = "none";
+        }
+        
+        save.onclick = function() {
+            modalev.style.display = "none";
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+            modalev.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal || event.target == modalev) {
+            modal.style.display = "none";
+            modalev.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>
